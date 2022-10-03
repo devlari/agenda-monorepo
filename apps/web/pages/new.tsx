@@ -26,7 +26,7 @@ export default function New() {
             <Formik
               initialValues={{ name: "", email: "", phone: "" }}
               onSubmit={onSubmit}
-              schema={contactSchema}
+              validationSchema={contactSchema}
             >
               {({ values, errors, handleChange, handleSubmit }) => (
                 <Form>
@@ -35,24 +35,27 @@ export default function New() {
                     name="name"
                     type="text"
                     onChange={handleChange}
-                    placeholder={errors.name ? errors.name : "Nome"}
+                    placeholder="Nome"
                     error={!!errors.name}
+                    helperText={errors.name}
                   />
                   <Input
                     value={values.phone}
                     name="phone"
                     type="tel"
                     onChange={handleChange}
-                    placeholder={errors.phone ? errors.phone : "Telefone"}
+                    placeholder="Telefone"
                     error={!!errors.phone}
+                    helperText={errors.phone}
                   />
                   <Input
                     value={values.email}
                     name="email"
                     type="email"
                     onChange={handleChange}
-                    placeholder={errors.email ? errors.email : "E-mail"}
+                    placeholder="E-mail"
                     error={!!errors.email}
+                    helperText={errors.email}
                   />
                   <div
                     style={{

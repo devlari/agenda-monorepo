@@ -8,6 +8,7 @@ type Props = {
   rounded?: boolean;
   placeholder?: string;
   error?: boolean;
+  helperText?: string;
 };
 
 export function Input({
@@ -20,6 +21,7 @@ export function Input({
   rounded,
   placeholder,
   error,
+  helperText,
 }: Props) {
   return (
     <>
@@ -28,12 +30,21 @@ export function Input({
         onChange={onChange}
         className={`input ${
           color && !error ? `is-${color}` : error && "is-danger"
-        } is-${size} ${rounded && `is-rounded`} mb-3`}
+        } is-${size} ${rounded && `is-rounded`} ${!error && "mb-3"}`}
         type={type}
         placeholder={placeholder}
         name={name}
       />
-      {error && <label>{error}</label>}
+      {error && (
+        <label
+          style={{
+            color: "red",
+          }}
+          className="mb-3"
+        >
+          {helperText}
+        </label>
+      )}
     </>
   );
 }
