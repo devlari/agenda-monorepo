@@ -1,18 +1,23 @@
+import { sequelize } from "../main/db";
+import { QueryTypes } from "sequelize";
 export default class DAO {
   public connection = null;
 
-  constructor(public readonly connectionPool) {}
+  async execSQL(sql: string, params: unknown[]): Promise<void> {
+    await sequelize.query(sql, {
+      type: QueryTypes.INSERT,
+    });
+  }
 
-  async openConnection(): Promise<void> {}
+  async query(sql: string, params: unknown[]): Promise<unknown[]> {
+    const dbData = await sequelize.query(sql, {
+      type: QueryTypes.SELECT,
+    });
 
-  async closeConnection(): Promise<void> {}
+    if (!dbData) {
+      return [];
+    }
 
-  async execSQL(sql: string, params: unknown[], commit = true): Promise<void> {}
-
-  //   async query<T = unknown>(sql: string, params: unknown[]): Promise<T[]> {}
-
-  //   async queryOne<T = unknown>(
-  //     sql: string,
-  //     params: unknown[]
-  //   ): Promise<T | null> {}
+    return dbData;
+  }
 }

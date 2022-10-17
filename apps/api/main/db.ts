@@ -21,13 +21,4 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Conexão com o banco realizada");
-  })
-  .catch((err) => {
-    // console.log(err);
-  });
-
 export { sequelize };

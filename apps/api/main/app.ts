@@ -1,16 +1,12 @@
 import express from "express";
 const app = express();
-import { sequelize } from "./db";
+app.use(express.json());
 // import cors from "cors";
 
-// import ContactsRoute from "./routes/contacts";
-
-// app.use(morgan("dev"));
+import contactsRoutes from "../routes/contacts";
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use(cors());
-
-// ContactsRoute(app, pool);
+contactsRoutes(app);
 
 export default app;

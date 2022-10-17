@@ -6,7 +6,7 @@ export type ContactsDB = {
 };
 
 export type Contacts = {
-  id: number;
+  id?: number;
   name: string;
   phone: string;
   email?: string;
