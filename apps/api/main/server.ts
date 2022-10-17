@@ -2,8 +2,7 @@
 import http from "http";
 const port = 3009;
 import app from "./app";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { sequelize } from "./db";
 
 const server = http.createServer(app);
 server.listen(port);
@@ -13,7 +12,8 @@ app.listen(3001, () => {
 });
 
 app.get("/", async (req, res) => {
-  res.send("Hello");
+  const result = sequelize.query("SELECT * FROM contato");
+  res.send(result);
 });
 
 app.post("/contact", async (req, res) => {

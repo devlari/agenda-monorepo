@@ -8,7 +8,6 @@ import { sequelize } from "./db";
 // app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// const result = sequelize.query("SELECT * FROM CONTATO");
 
 // app.use(cors());
 
