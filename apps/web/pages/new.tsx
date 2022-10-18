@@ -3,10 +3,22 @@ import "bulma/css/bulma.min.css";
 import { Form, Formik } from "formik";
 import contactSchema from "../modules/contact/schemas/contactPostSchema";
 import { Contact } from "../modules/contact/types";
+import ContactsService from "../modules/contact/service";
+import Alerts from "../service/sw-alert";
+import { useRouter } from "next/router";
 
 export default function New() {
+  const contactsService = new ContactsService();
+  const router = useRouter();
+
   async function onSubmit(values: Contact) {
-    console.log(values);
+    try {
+      await contactsService.post(values);
+      await Alerts.success("Contato cadastrado com sucesso!");
+      router.back();
+    } catch (err) {
+      await Alerts.httpError(err, "Erro ao cadastrar contato!");
+    }
   }
 
   return (

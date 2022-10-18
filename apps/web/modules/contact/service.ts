@@ -12,6 +12,10 @@ export default class ContactsService {
     return this.ApiClient.post("/contacts", contact);
   }
 
+  async getById(id: number) {
+    return this.ApiClient.get(`/contacts/${id}`);
+  }
+
   async get() {
     return this.ApiClient.get("/contacts");
   }
@@ -20,7 +24,7 @@ export default class ContactsService {
     return this.ApiClient.put("/contacts", contact);
   }
 
-  async delete(id: string) {
+  async delete(id: number) {
     return this.ApiClient.delete(`/contacts/${id}`);
   }
 }

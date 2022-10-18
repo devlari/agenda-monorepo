@@ -15,7 +15,9 @@ export default function Web() {
               <div id="navbarMenuHeroA" className="navbar-menu">
                 <div className="navbar-end">
                   <a className="navbar-item is-active">Home</a>
-                  <a className="navbar-item">Meus contatos</a>
+                  <a className="navbar-item" href="/contacts">
+                    Meus contatos
+                  </a>
                   <span className="navbar-item">
                     <a
                       onClick={() => {

@@ -13,14 +13,23 @@ export function Header({ page }: Props) {
     >
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className={`navbar-item ${page == "Home" && "is-active"}`}>Home</a>
+          <a
+            className={`navbar-item ${page == "Home" && "is-active"}`}
+            href="/"
+          >
+            Home
+          </a>
 
-          <a className={`navbar-item ${page == "Cadastro" && "is-active"}`}>
+          <a
+            className={`navbar-item ${page == "Cadastro" && "is-active"}`}
+            href="/new"
+          >
             Cadastro
           </a>
 
           <a
             className={`navbar-item ${page == "Meus contatos" && "is-active"}`}
+            href="/contacts"
           >
             Meus contatos
           </a>
