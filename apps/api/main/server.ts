@@ -3,7 +3,7 @@ import http from "http";
 const port = 3009;
 import app from "./app";
 import { sequelize } from "./db";
-import { Contact } from "../modules/contacts/Contact";
+import { Contact } from "../models/Contact";
 
 const server = http.createServer(app);
 server.listen(port);

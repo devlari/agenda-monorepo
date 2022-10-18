@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint *.ts*",
-    "dev": "nodemon --exec ts-node main/server.ts"
+    "dev": "nodemon --exec ts-node main/server.ts",
+    "build": "tsc --build"
   },
   "author": "",
   "license": "ISC",

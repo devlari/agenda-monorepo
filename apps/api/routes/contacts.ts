@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import { httpResponse, HttpStatus } from "../common/types";
 import ContactsController from "../modules/contacts/controller";
 import ContactsDAO from "../modules/contacts/dao";

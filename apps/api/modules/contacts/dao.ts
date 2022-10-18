@@ -1,5 +1,5 @@
 import DAO from "../../common/dao";
-import { Contact } from "../../modules/contacts/Contact";
+import { Contact } from "../../models/Contact";
 import { Contacts } from "../../modules/contacts/types";
 
 export default class ContactsDAO extends DAO {

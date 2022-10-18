@@ -1,5 +1,5 @@
 import { INTEGER, STRING } from "sequelize";
-import { sequelize as bd } from "../../main/db";
+import { sequelize as bd } from "../main/db";
 
 const Contact = bd.define("contato", {
   id: {
