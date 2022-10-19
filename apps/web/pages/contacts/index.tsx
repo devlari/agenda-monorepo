@@ -1,12 +1,63 @@
+import { useRouter } from "next/router";
 import { MainLayout, Header, ListContacts } from "ui";
 import ContactsService from "../../modules/contact/service";
 import { Contact } from "../../modules/contact/types";
+import Alerts from "../../service/sw-alert";
 
 type Props = {
   contacts: Contact[];
 };
 
 export default function Contacts({ contacts }: Props) {
+  const contactsService = new ContactsService();
+  const router = useRouter();
+  const letters = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
+
+  async function handleDelete(id: number) {
+    const confirm = await Alerts.confirm("Deseja realmente excluir o contato?");
+
+    if (!confirm) return;
+
+    try {
+      await contactsService.delete(id);
+      Alerts.success("Contato excluído com sucesso!");
+      router.reload();
+    } catch (error) {
+      Alerts.httpError(error, "Erro ao excluir o contato!");
+    }
+  }
+
+  async function handleEdit(id: number) {
+    router.push(`/contacts/${id}/edit`);
+  }
+
   return (
     <>
       <Header page="Meus contatos" />
@@ -14,7 +65,15 @@ export default function Contacts({ contacts }: Props) {
         <h1 className="title mt-2" style={{ textAlign: "center" }}>
           Contatos
         </h1>
-        <ListContacts letter="L" contacts={contacts} />
+        {letters.map((letter) => (
+          <ListContacts
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            key={letter}
+            letter={letter}
+            contacts={contacts.filter((contact) => contact.name[0] == letter)}
+          />
+        ))}
       </MainLayout>
     </>
   );

@@ -1,21 +1,28 @@
 import DAO from "../../common/dao";
 import { Contact } from "../../models/Contact";
-import { Contacts } from "../../modules/contacts/types";
+import { Contacts, ContactsDB } from "../../modules/contacts/types";
 
 export default class ContactsDAO extends DAO {
   private transform(dbData: any) {
-    return dbData.map((contact: any) => ({
-      id: contact.id,
-      name: contact.nome,
-      email: contact.email,
-      phone: contact.telefone,
-    }));
+    return {
+      id: dbData.id,
+      name: dbData.nome,
+      email: dbData.email,
+      phone: dbData.telefone,
+      createdAt: dbData.createdAt,
+      updatedAt: dbData.updatedAt,
+    };
   }
 
   async getContacts() {
-    const data = await this.query("SELECT * FROM contatos", []);
+    const data = await this.query(
+      "SELECT * FROM contatos ORDER BY nome ASC",
+      []
+    );
 
-    return this.transform(data);
+    return data.map((contact: any) => {
+      return this.transform(contact);
+    });
   }
 
   async getById(id: number) {
@@ -25,7 +32,7 @@ export default class ContactsDAO extends DAO {
       return false;
     }
 
-    return contact;
+    return this.transform(contact);
   }
 
   async newContact(contact: Contacts) {

@@ -1,29 +1,32 @@
-import { Button, MainLayout, Header, Input } from "ui";
-import "bulma/css/bulma.min.css";
-import { Form, Formik } from "formik";
-import contactSchema from "../modules/contact/schemas/contactPostSchema";
-import { Contact } from "../modules/contact/types";
-import ContactsService from "../modules/contact/service";
-import Alerts from "../service/sw-alert";
+import { Formik, Form } from "formik";
+import { Header, MainLayout, Input, Button } from "ui";
+import ContactsService from "../../../modules/contact/service";
+import { Contact } from "../../../modules/contact/types";
+import contactSchema from "../../../modules/contact/schemas/contactPostSchema";
 import { useRouter } from "next/router";
+import Alerts from "../../../service/sw-alert";
 
-export default function New() {
+type Props = {
+  contact: Contact;
+};
+
+export default function EditContact({ contact }: Props) {
   const contactsService = new ContactsService();
   const router = useRouter();
 
   async function onSubmit(values: Contact) {
     try {
-      await contactsService.post(values);
-      await Alerts.success("Contato cadastrado com sucesso!");
+      await contactsService.put(values);
+      await Alerts.success("Contato editado com sucesso!");
       router.back();
     } catch (err) {
-      await Alerts.httpError(err, "Erro ao cadastrar contato!");
+      await Alerts.httpError(err, "Erro ao editar contato!");
     }
   }
 
   return (
     <>
-      <Header page="Cadastro" />
+      <Header page="Editar" />
       <MainLayout>
         <h1
           className="title mt-2"
@@ -31,12 +34,16 @@ export default function New() {
             textAlign: "center",
           }}
         >
-          Novo contato
+          Editar contato
         </h1>
         <div className="columns">
           <div className="column is-6 is-offset-3">
             <Formik
-              initialValues={{ name: "", email: "", phone: "" }}
+              initialValues={{
+                name: contact.name,
+                email: contact.email,
+                phone: contact.phone,
+              }}
               onSubmit={onSubmit}
               validationSchema={contactSchema}
             >
@@ -75,7 +82,7 @@ export default function New() {
                       justifyContent: "end",
                     }}
                   >
-                    <Button color="info" type="submit" text="Cadastrar" />
+                    <Button color="info" type="submit" text="Editar" />
                   </div>
                 </Form>
               )}
@@ -85,4 +92,19 @@ export default function New() {
       </MainLayout>
     </>
   );
+}
+
+export async function getServerSideProps({ query }: any) {
+  const id = Number(query.id);
+
+  const contactsService = new ContactsService();
+  const contact = await contactsService.getById(id);
+
+  console.log(contact);
+
+  return {
+    props: {
+      contact,
+    },
+  };
 }

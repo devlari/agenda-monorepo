@@ -1,12 +1,14 @@
-import { CaretDown, CaretUp } from "phosphor-react";
+import { CaretDown, CaretUp, PencilLine, Trash } from "phosphor-react";
 import { useState } from "react";
 import { Contact } from "../../apps/web/modules/contact/types";
 
 type Props = {
   contact: Contact;
+  handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
 };
 
-export function CardContact({ contact }: Props) {
+export function CardContact({ contact, handleDelete, handleEdit }: Props) {
   const [isCardOpen, setIsCardOpen] = useState(false);
 
   return (
@@ -41,15 +43,31 @@ export function CardContact({ contact }: Props) {
                 </>
               )}
               <br />
-              <time dateTime="2016-1-1">Criado em 11:09 PM - 1 Jan 2016</time>
+              <time>Criado em {contact.createdAt}</time>
             </div>
           </div>
           <footer className="card-footer">
-            <a href="#" className="card-footer-item">
-              Edit
+            <a
+              href="#"
+              onClick={() => {
+                if (!contact.id) return;
+
+                handleEdit(contact.id);
+              }}
+              className="card-footer-item"
+            >
+              <PencilLine size={32} color="orange" />
             </a>
-            <a href="#" className="card-footer-item">
-              Delete
+            <a
+              href="#"
+              onClick={() => {
+                if (!contact.id) return;
+
+                handleDelete(contact.id);
+              }}
+              className="card-footer-item"
+            >
+              <Trash size={32} color="red" />
             </a>
           </footer>
         </>

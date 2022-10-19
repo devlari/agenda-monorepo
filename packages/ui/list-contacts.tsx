@@ -5,19 +5,35 @@ import { Divider } from "./divider";
 type Props = {
   letter: string;
   contacts: Contact[];
+  handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
 };
 
-export function ListContacts({ letter, contacts }: Props) {
+export function ListContacts({
+  letter,
+  contacts,
+  handleDelete,
+  handleEdit,
+}: Props) {
   return (
     <>
-      <Divider letter={letter} />
-      {contacts.map((contact) => (
-        <div className="columns">
-          <div className="column is-offset-2 is-8 bg-info">
-            <CardContact contact={contact} />
-          </div>
-        </div>
-      ))}
+      {contacts.length > 0 && (
+        <>
+          <Divider letter={letter} />
+          {contacts.map((contact) => (
+            <div className="columns">
+              <div className="column is-offset-2 is-8 bg-info">
+                <CardContact
+                  key={contact.id}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                  contact={contact}
+                />
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </>
   );
 }
