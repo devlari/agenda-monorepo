@@ -12,7 +12,9 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "ui": "npm -w ui"
+    "ui": "npm -w ui run dev",
+    "api": "npm -w api run dev",
+    "web": "npm -w web run dev"
   },
   "devDependencies": {
     "eslint-config-custom": "*",

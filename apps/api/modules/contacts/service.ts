@@ -17,7 +17,11 @@ export default class ContactsService {
   }
 
   async newContact(contact: Contacts) {
-    return this.dao.newContact(contact);
+    try {
+      return this.dao.newContact(contact);
+    } catch (e) {
+      throw new Error(`${e}`);
+    }
   }
 
   async deleteContact(id: number) {

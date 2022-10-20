@@ -21,10 +21,9 @@ export function ListContacts({
         <>
           <Divider letter={letter} />
           {contacts.map((contact) => (
-            <div className="columns">
+            <div key={contact.id} className="columns">
               <div className="column is-offset-2 is-8 bg-info">
                 <CardContact
-                  key={contact.id}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
                   contact={contact}

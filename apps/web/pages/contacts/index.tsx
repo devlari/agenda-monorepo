@@ -47,7 +47,7 @@ export default function Contacts({ contacts }: Props) {
 
     try {
       await contactsService.delete(id);
-      Alerts.success("Contato excluído com sucesso!");
+      await Alerts.success("Contato excluído com sucesso!");
       router.reload();
     } catch (error) {
       Alerts.httpError(error, "Erro ao excluir o contato!");

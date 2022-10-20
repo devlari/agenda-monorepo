@@ -25,13 +25,17 @@ export default class ContactsController {
   }
 
   async newContact(contact: Contacts) {
-    if (!contact.name || !contact.phone) {
-      return HttpStatus.BAD_REQUEST;
+    try {
+      if (!contact.name || !contact.phone) {
+        return HttpStatus.BAD_REQUEST;
+      }
+
+      const newContact = await this.service.newContact(contact);
+
+      return newContact;
+    } catch (e) {
+      throw new Error(`${e}`);
     }
-
-    const newContact = await this.service.newContact(contact);
-
-    return newContact;
   }
 
   async deleteContact(id: number) {

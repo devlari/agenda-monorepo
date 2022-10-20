@@ -40,6 +40,7 @@ export default function EditContact({ contact }: Props) {
           <div className="column is-6 is-offset-3">
             <Formik
               initialValues={{
+                id: contact.id,
                 name: contact.name,
                 email: contact.email,
                 phone: contact.phone,
@@ -99,8 +100,6 @@ export async function getServerSideProps({ query }: any) {
 
   const contactsService = new ContactsService();
   const contact = await contactsService.getById(id);
-
-  console.log(contact);
 
   return {
     props: {

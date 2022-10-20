@@ -21,7 +21,7 @@ export default class ContactsService {
   }
 
   async put(contact: Contact) {
-    return this.ApiClient.put("/contacts", contact);
+    return this.ApiClient.put(`/contacts/${contact.id}`, contact);
   }
 
   async delete(id: number) {

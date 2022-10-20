@@ -36,13 +36,17 @@ export default class ContactsDAO extends DAO {
   }
 
   async newContact(contact: Contacts) {
-    const newContact = await Contact.create({
-      nome: contact.name,
-      telefone: contact.phone,
-      email: contact.email,
-    });
+    try {
+      const newContact = await Contact.create({
+        nome: contact.name,
+        telefone: contact.phone,
+        email: contact.email,
+      });
 
-    return newContact;
+      return newContact;
+    } catch (e) {
+      throw new Error(`${e}`);
+    }
   }
 
   async deleteContact(id: number) {
